@@ -21,7 +21,7 @@ func main(){
 		for y := range text{
 			if text[y][x] == 'X' {
 				for _, direction := range directions{
-					searchM(text, x, y, direction, &count)
+					searchM(text, x+direction.x, y+direction.y, direction, &count)
 				}
 			}
 		}
@@ -30,25 +30,22 @@ func main(){
 }
 
 func searchM(text []string, x,y int, direction struct{x,y int}, count *int){
-	if 	x+direction.x>=0 && x+direction.x<len(text[0]) && 
-		y+direction.y>=0 && y+direction.y<len(text) &&
-		text[y+direction.y][x+direction.x]=='M' {
+	if 	x>=0 && x<len(text[0]) && y>=0 && y<len(text) &&
+		text[y][x]=='M' {
 		searchA(text, x+direction.x, y+direction.y, direction, count)
 	}
 }
 
 func searchA(text []string, x,y int, direction struct{x,y int}, count *int){
-	if 	x+direction.x>=0 && x+direction.x<len(text[0]) && 
-		y+direction.y>=0 && y+direction.y<len(text) &&
-		text[y+direction.y][x+direction.x]=='A' {
-		searchS(text, x+direction.x, y+direction.y, direction, count)
+	if 	x>=0 && x<len(text[0]) && y>=0 && y<len(text) &&
+		text[y][x]=='A' {
+		searchS(text, x+direction.x, y+direction.y, count)
 	}
 }
 
-func searchS(text []string, x,y int, direction struct{x,y int}, count *int){
-	if 	x+direction.x>=0 && x+direction.x<len(text[0]) && 
-		y+direction.y>=0 && y+direction.y<len(text) &&
-		text[y+direction.y][x+direction.x]=='S' {
+func searchS(text []string, x,y int, count *int){
+	if 	x>=0 && x<len(text[0]) && y>=0 && y<len(text) &&
+		text[y][x]=='S' {
 		*count++
 	}
 }
